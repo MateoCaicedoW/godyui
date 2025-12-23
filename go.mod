@@ -1,4 +1,4 @@
-module github.com/MateoCaicedoW/godyUI
+module github.com/MateoCaicedoW/godyui
 
 go 1.24.0
 
