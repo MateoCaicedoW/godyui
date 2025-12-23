@@ -15,12 +15,19 @@ A comprehensive Go wrapper library for [Basecoat UI](https://www.basecoat.dev/) 
 
 ```bash
 go get maragu.dev/gomponents
-go get github.com/MateoCaicedoW/godyUI
+go get github.com/wawandco/gomui
 ```
 
-Then include Basecoat UI CSS in your HTML:
+Then include Basecoat UI CSS and JavaScript using our helper components in your HTML:
 
 ```html
+<!-- Option 1: Include both CSS and JS (recommended) -->
+<!-- In your Go code: gm.BasecoatAssets() -->
+
+<!-- Option 2: Include CSS and JS separately -->
+<!-- In your Go code: gm.BasecoatCSS() and gm.BasecoatJS() -->
+
+<!-- Or manually include Basecoat assets -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/basecoat-css@0.3.9/dist/basecoat.cdn.min.css">
 <script src="https://cdn.jsdelivr.net/npm/basecoat-css@0.3.9/dist/js/all.min.js" defer></script>
 ```
@@ -33,26 +40,26 @@ package main
 import (
     g "maragu.dev/gomponents"
     . "maragu.dev/gomponents/html"
-    bc "github.com/MateoCaicedoW/godyUI"
+    gm "github.com/wawandco/gomui"
 )
 
 func MyPage() g.Node {
     return Html(
         Head(
             TitleEl(g.Text("My App")),
-            Link(Rel("stylesheet"), Href("https://cdn.jsdelivr.net/npm/basecoat-ui@latest/dist/basecoat.css")),
-            bc.DarkModeScript(), // Enable dark mode
+            gm.BasecoatAssets(), // Include Basecoat CSS and JS
+            gm.DarkModeScript(), // Enable dark mode
         ),
         Body(
             Div(Class("container mx-auto p-4"),
-                bc.ThemeToggle("theme-btn"),
-                bc.Card(
-                    bc.CardHeader(
-                        bc.CardTitle(g.Text("Welcome!")),
-                        bc.CardDescription(g.Text("Get started with Basecoat UI")),
+                gm.ThemeToggle("theme-btn"),
+                gm.Card(
+                    gm.CardHeader(
+                        gm.CardTitle(g.Text("Welcome!")),
+                        gm.CardDescription(g.Text("Get started with Basecoat UI")),
                     ),
-                    bc.CardContent(
-                        bc.Button(bc.ButtonPrimary, bc.ButtonDefault,
+                    gm.CardContent(
+                        gm.Button(gm.ButtonPrimary, gm.ButtonDefault,
                             g.Text("Click me"),
                         ),
                     ),
@@ -71,7 +78,7 @@ Add the dark mode script in your `<head>` to initialize the theme:
 
 ```go
 Head(
-    bc.DarkModeScript(),
+    gm.DarkModeScript(),
     // ... other head elements
 )
 ```
@@ -81,7 +88,7 @@ Head(
 Add a theme toggle button anywhere in your UI:
 
 ```go
-bc.ThemeToggle("theme-toggle")
+gm.ThemeToggle("theme-toggle")
 ```
 
 The theme preference is automatically saved to `localStorage` and persists across sessions.
@@ -92,56 +99,56 @@ The theme preference is automatically saved to `localStorage` and persists acros
 
 ```go
 // Primary button
-bc.Button(bc.ButtonPrimary, bc.ButtonDefault, g.Text("Primary"))
+gm.Button(gm.ButtonPrimary, gm.ButtonDefault, g.Text("Primary"))
 
 // Secondary button
-bc.Button(bc.ButtonSecondary, bc.ButtonDefault, g.Text("Secondary"))
+gm.Button(gm.ButtonSecondary, gm.ButtonDefault, g.Text("Secondary"))
 
 // Outline button
-bc.Button(bc.ButtonOutline, bc.ButtonDefault, g.Text("Outline"))
+gm.Button(gm.ButtonOutline, gm.ButtonDefault, g.Text("Outline"))
 
 // Ghost button
-bc.Button(bc.ButtonGhost, bc.ButtonDefault, g.Text("Ghost"))
+gm.Button(gm.ButtonGhost, gm.ButtonDefault, g.Text("Ghost"))
 
 // Destructive button
-bc.Button(bc.ButtonDestructive, bc.ButtonDefault, g.Text("Delete"))
+gm.Button(gm.ButtonDestructive, gm.ButtonDefault, g.Text("Delete"))
 
 // Different sizes
-bc.Button(bc.ButtonPrimary, bc.ButtonSm, g.Text("Small"))
-bc.Button(bc.ButtonPrimary, bc.ButtonLg, g.Text("Large"))
-bc.Button(bc.ButtonPrimary, bc.ButtonIcon, g.Text("🔍"))
+gm.Button(gm.ButtonPrimary, gm.ButtonSm, g.Text("Small"))
+gm.Button(gm.ButtonPrimary, gm.ButtonLg, g.Text("Large"))
+gm.Button(gm.ButtonPrimary, gm.ButtonIcon, g.Text("🔍"))
 ```
 
 ### Forms
 
 ```go
-bc.Form(
-    bc.FormField(
-        bc.FormLabel("email", g.Text("Email")),
-        bc.Input(Type("email"), ID("email"), Placeholder("you@example.com")),
-        bc.FormDescription(g.Text("We'll never share your email.")),
+gm.Form(
+    gm.FormField(
+        gm.FormLabel("email", g.Text("Email")),
+        gm.Input(Type("email"), ID("email"), Placeholder("you@example.com")),
+        gm.FormDescription(g.Text("We'll never share your email.")),
     ),
-    bc.FormField(
-        bc.FormLabel("message", g.Text("Message")),
-        bc.Textarea(ID("message"), Placeholder("Your message...")),
+    gm.FormField(
+        gm.FormLabel("message", g.Text("Message")),
+        gm.Textarea(ID("message"), Placeholder("Your message...")),
     ),
-    bc.Button(bc.ButtonPrimary, bc.ButtonDefault, g.Text("Submit")),
+    gm.Button(gm.ButtonPrimary, gm.ButtonDefault, g.Text("Submit")),
 )
 ```
 
 ### Cards
 
 ```go
-bc.Card(
-    bc.CardHeader(
-        bc.CardTitle(g.Text("Card Title")),
-        bc.CardDescription(g.Text("Card description goes here")),
+gm.Card(
+    gm.CardHeader(
+        gm.CardTitle(g.Text("Card Title")),
+        gm.CardDescription(g.Text("Card description goes here")),
     ),
-    bc.CardContent(
+    gm.CardContent(
         g.Text("Your content here"),
     ),
-    bc.CardFooter(
-        bc.Button(bc.ButtonPrimary, bc.ButtonDefault, g.Text("Action")),
+    gm.CardFooter(
+        gm.Button(gm.ButtonPrimary, gm.ButtonDefault, g.Text("Action")),
     ),
 )
 ```
@@ -150,51 +157,51 @@ bc.Card(
 
 ```go
 // Default alert
-bc.Alert(bc.AlertDefault,
-    bc.AlertTitle(g.Text("Heads up!")),
-    bc.AlertDescription(g.Text("This is an alert message.")),
+gm.Alert(gm.AlertDefault,
+    gm.AlertTitle(g.Text("Heads up!")),
+    gm.AlertDescription(g.Text("This is an alert message.")),
 )
 
 // Success alert
-bc.Alert(bc.AlertSuccess,
-    bc.AlertTitle(g.Text("Success!")),
-    bc.AlertDescription(g.Text("Operation completed.")),
+gm.Alert(gm.AlertSuccess,
+    gm.AlertTitle(g.Text("Success!")),
+    gm.AlertDescription(g.Text("Operation completed.")),
 )
 
 // Destructive alert
-bc.Alert(bc.AlertDestructive,
-    bc.AlertTitle(g.Text("Error")),
-    bc.AlertDescription(g.Text("Something went wrong.")),
+gm.Alert(gm.AlertDestructive,
+    gm.AlertTitle(g.Text("Error")),
+    gm.AlertDescription(g.Text("Something went wrong.")),
 )
 ```
 
 ### Badges
 
 ```go
-bc.Badge(bc.BadgeDefault, g.Text("Default"))
-bc.Badge(bc.BadgeSecondary, g.Text("Secondary"))
-bc.Badge(bc.BadgeDestructive, g.Text("Destructive"))
-bc.Badge(bc.BadgeOutline, g.Text("Outline"))
-bc.Badge(bc.BadgeSuccess, g.Text("Success"))
-bc.Badge(bc.BadgeWarning, g.Text("Warning"))
+gm.Badge(gm.BadgeDefault, g.Text("Default"))
+gm.Badge(gm.BadgeSecondary, g.Text("Secondary"))
+gm.Badge(gm.BadgeDestructive, g.Text("Destructive"))
+gm.Badge(gm.BadgeOutline, g.Text("Outline"))
+gm.Badge(gm.BadgeSuccess, g.Text("Success"))
+gm.Badge(gm.BadgeWarning, g.Text("Warning"))
 ```
 
 ### Tables
 
 ```go
-bc.Table(
-    bc.TableHeader(
-        bc.TableRow(
-            bc.TableHead(g.Text("Name")),
-            bc.TableHead(g.Text("Email")),
-            bc.TableHead(g.Text("Role")),
+gm.Table(
+    gm.TableHeader(
+        gm.TableRow(
+            gm.TableHead(g.Text("Name")),
+            gm.TableHead(g.Text("Email")),
+            gm.TableHead(g.Text("Role")),
         ),
     ),
-    bc.TableBody(
-        bc.TableRow(
-            bc.TableCell(g.Text("John Doe")),
-            bc.TableCell(g.Text("john@example.com")),
-            bc.TableCell(g.Text("Admin")),
+    gm.TableBody(
+        gm.TableRow(
+            gm.TableCell(g.Text("John Doe")),
+            gm.TableCell(g.Text("john@example.com")),
+            gm.TableCell(g.Text("Admin")),
         ),
     ),
 )
@@ -203,15 +210,15 @@ bc.Table(
 ### Dialogs/Modals
 
 ```go
-bc.Dialog(true, // open state
-    bc.DialogContent(
-        bc.DialogHeader(
-            bc.DialogTitle(g.Text("Confirm Action")),
-            bc.DialogDescription(g.Text("Are you sure?")),
+gm.Dialog(true, // open state
+    gm.DialogContent(
+        gm.DialogHeader(
+            gm.DialogTitle(g.Text("Confirm Action")),
+            gm.DialogDescription(g.Text("Are you sure?")),
         ),
-        bc.DialogFooter(
-            bc.Button(bc.ButtonOutline, bc.ButtonDefault, g.Text("Cancel")),
-            bc.Button(bc.ButtonPrimary, bc.ButtonDefault, g.Text("Confirm")),
+        gm.DialogFooter(
+            gm.Button(gm.ButtonOutline, gm.ButtonDefault, g.Text("Cancel")),
+            gm.Button(gm.ButtonPrimary, gm.ButtonDefault, g.Text("Confirm")),
         ),
     ),
 )
@@ -220,27 +227,27 @@ bc.Dialog(true, // open state
 ### Tabs
 
 ```go
-bc.Tabs(
-    bc.TabsList(
-        bc.TabsTrigger("account", g.Text("Account")),
-        bc.TabsTrigger("password", g.Text("Password")),
+gm.Tabs(
+    gm.TabsList(
+        gm.TabsTrigger("account", g.Text("Account")),
+        gm.TabsTrigger("password", g.Text("Password")),
     ),
-    bc.TabsContent("account",
-        bc.Card(
-            bc.CardHeader(
-                bc.CardTitle(g.Text("Account Settings")),
+    gm.TabsContent("account",
+        gm.Card(
+            gm.CardHeader(
+                gm.CardTitle(g.Text("Account Settings")),
             ),
-            bc.CardContent(
+            gm.CardContent(
                 g.Text("Account content here"),
             ),
         ),
     ),
-    bc.TabsContent("password",
-        bc.Card(
-            bc.CardHeader(
-                bc.CardTitle(g.Text("Password Settings")),
+    gm.TabsContent("password",
+        gm.Card(
+            gm.CardHeader(
+                gm.CardTitle(g.Text("Password Settings")),
             ),
-            bc.CardContent(
+            gm.CardContent(
                 g.Text("Password content here"),
             ),
         ),
@@ -251,19 +258,19 @@ bc.Tabs(
 ### Navigation Menu
 
 ```go
-bc.NavigationMenu(
-    bc.NavigationMenuList(
-        bc.NavigationMenuItem(
-            bc.NavigationMenuLink("/", g.Text("Home")),
+gm.NavigationMenu(
+    gm.NavigationMenuList(
+        gm.NavigationMenuItem(
+            gm.NavigationMenuLink("/", g.Text("Home")),
         ),
-        bc.NavigationMenuItem(
-            bc.NavigationMenuLink("/about", g.Text("About")),
+        gm.NavigationMenuItem(
+            gm.NavigationMenuLink("/about", g.Text("About")),
         ),
-        bc.NavigationMenuItem(
-            bc.NavigationMenuTrigger(g.Text("Products")),
-            bc.NavigationMenuContent(
-                bc.NavigationMenuLink("/products/web", g.Text("Web")),
-                bc.NavigationMenuLink("/products/mobile", g.Text("Mobile")),
+        gm.NavigationMenuItem(
+            gm.NavigationMenuTrigger(g.Text("Products")),
+            gm.NavigationMenuContent(
+                gm.NavigationMenuLink("/products/web", g.Text("Web")),
+                gm.NavigationMenuLink("/products/mobile", g.Text("Mobile")),
             ),
         ),
     ),
@@ -273,16 +280,16 @@ bc.NavigationMenu(
 ### Accordion
 
 ```go
-bc.Accordion(
-    bc.AccordionItem(
-        bc.AccordionTrigger(g.Text("What is Basecoat UI?")),
-        bc.AccordionContent(
+gm.Accordion(
+    gm.AccordionItem(
+        gm.AccordionTrigger(g.Text("What is Basecoat UI?")),
+        gm.AccordionContent(
             g.Text("Basecoat UI is a component library..."),
         ),
     ),
-    bc.AccordionItem(
-        bc.AccordionTrigger(g.Text("How do I use it?")),
-        bc.AccordionContent(
+    gm.AccordionItem(
+        gm.AccordionTrigger(g.Text("How do I use it?")),
+        gm.AccordionContent(
             g.Text("Simply import the components..."),
         ),
     ),
@@ -292,15 +299,15 @@ bc.Accordion(
 ### Dropdown Menu
 
 ```go
-bc.DropdownMenu(
-    bc.DropdownMenuTrigger(g.Text("Options")),
-    bc.DropdownMenuContent(
-        bc.DropdownMenuLabel(g.Text("My Account")),
-        bc.DropdownMenuSeparator(),
-        bc.DropdownMenuItem(g.Text("Profile")),
-        bc.DropdownMenuItem(g.Text("Settings")),
-        bc.DropdownMenuSeparator(),
-        bc.DropdownMenuItem(g.Text("Logout")),
+gm.DropdownMenu(
+    gm.DropdownMenuTrigger(g.Text("Options")),
+    gm.DropdownMenuContent(
+        gm.DropdownMenuLabel(g.Text("My Account")),
+        gm.DropdownMenuSeparator(),
+        gm.DropdownMenuItem(g.Text("Profile")),
+        gm.DropdownMenuItem(g.Text("Settings")),
+        gm.DropdownMenuSeparator(),
+        gm.DropdownMenuItem(g.Text("Logout")),
     ),
 )
 ```
@@ -308,17 +315,17 @@ bc.DropdownMenu(
 ### Breadcrumbs
 
 ```go
-bc.Breadcrumb(
-    bc.BreadcrumbList(
-        bc.BreadcrumbItem(
-            bc.BreadcrumbLink("/", g.Text("Home")),
+gm.Breadcrumb(
+    gm.BreadcrumbList(
+        gm.BreadcrumbItem(
+            gm.BreadcrumbLink("/", g.Text("Home")),
         ),
-        bc.BreadcrumbSeparator(),
-        bc.BreadcrumbItem(
-            bc.BreadcrumbLink("/products", g.Text("Products")),
+        gm.BreadcrumbSeparator(),
+        gm.BreadcrumbItem(
+            gm.BreadcrumbLink("/products", g.Text("Products")),
         ),
-        bc.BreadcrumbSeparator(),
-        bc.BreadcrumbItem(g.Text("Current Page")),
+        gm.BreadcrumbSeparator(),
+        gm.BreadcrumbItem(g.Text("Current Page")),
     ),
 )
 ```
@@ -326,13 +333,13 @@ bc.Breadcrumb(
 ### Pagination
 
 ```go
-bc.Pagination(
-    bc.PaginationContent(
-        bc.PaginationItem(bc.PaginationPrevious("/page/1")),
-        bc.PaginationItem(bc.PaginationLink("/page/1", false, g.Text("1"))),
-        bc.PaginationItem(bc.PaginationLink("/page/2", true, g.Text("2"))),
-        bc.PaginationItem(bc.PaginationLink("/page/3", false, g.Text("3"))),
-        bc.PaginationItem(bc.PaginationNext("/page/3")),
+gm.Pagination(
+    gm.PaginationContent(
+        gm.PaginationItem(gm.PaginationPrevious("/page/1")),
+        gm.PaginationItem(gm.PaginationLink("/page/1", false, g.Text("1"))),
+        gm.PaginationItem(gm.PaginationLink("/page/2", true, g.Text("2"))),
+        gm.PaginationItem(gm.PaginationLink("/page/3", false, g.Text("3"))),
+        gm.PaginationItem(gm.PaginationNext("/page/3")),
     ),
 )
 ```
@@ -340,26 +347,26 @@ bc.Pagination(
 ### Avatar
 
 ```go
-bc.Avatar(
-    bc.AvatarImage("/avatar.jpg", "User avatar"),
-    bc.AvatarFallback(g.Text("JD")),
+gm.Avatar(
+    gm.AvatarImage("/avatar.jpg", "User avatar"),
+    gm.AvatarFallback(g.Text("JD")),
 )
 ```
 
 ### Progress Bar
 
 ```go
-bc.Progress(65) // 65% complete
+gm.Progress(65) // 65% complete
 ```
 
 ### Skeleton Loaders
 
 ```go
-bc.Card(
-    bc.CardContent(
-        bc.Skeleton(StyleEl(g.Attr("style", "height: 20px; margin-bottom: 8px"))),
-        bc.Skeleton(StyleEl(g.Attr("style", "height: 20px; margin-bottom: 8px"))),
-        bc.Skeleton(StyleEl(g.Attr("style", "height: 20px; width: 60%"))),
+gm.Card(
+    gm.CardContent(
+        gm.Skeleton(StyleEl(g.Attr("style", "height: 20px; margin-bottom: 8px"))),
+        gm.Skeleton(StyleEl(g.Attr("style", "height: 20px; margin-bottom: 8px"))),
+        gm.Skeleton(StyleEl(g.Attr("style", "height: 20px; width: 60%"))),
     ),
 )
 ```
@@ -427,6 +434,9 @@ bc.Card(
 ### Theme
 - `DarkModeScript()` - Initialize dark mode
 - `ThemeToggle(id)` - Theme toggle button
+- `BasecoatCSS()` - Include Basecoat CSS from CDN
+- `BasecoatJS()` - Include Basecoat JavaScript from CDN  
+- `BasecoatAssets()` - Include both Basecoat CSS and JavaScript for convenience
 
 ## Framework Integration
 
@@ -438,7 +448,7 @@ package main
 import (
     "net/http"
     g "maragu.dev/gomponents"
-    bc "github.com/MateoCaicedoW/godyUI"
+    gm "github.com/wawandco/gomui"
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
@@ -461,7 +471,7 @@ import (
     "net/http"
     "github.com/go-chi/chi/v5"
     g "maragu.dev/gomponents"
-    bc "github.com/MateoCaicedoW/godyUI"
+    gm "github.com/wawandco/gomui"
 )
 
 func main() {
@@ -480,7 +490,7 @@ package main
 
 import (
     "github.com/gofiber/fiber/v2"
-    bc "github.com/MateoCaicedoW/godyUI"
+    gm "github.com/wawandco/gomui"
 )
 
 func main() {
@@ -502,7 +512,7 @@ package main
 
 import (
     "github.com/labstack/echo/v4"
-    bc "github.com/MateoCaicedoW/godyUI"
+    gm "github.com/wawandco/gomui"
 )
 
 func main() {
@@ -525,13 +535,13 @@ Create reusable component functions:
 
 ```go
 func UserCard(name, email string) g.Node {
-    return bc.Card(
-        bc.CardHeader(
-            bc.CardTitle(g.Text(name)),
-            bc.CardDescription(g.Text(email)),
+    return gm.Card(
+        gm.CardHeader(
+            gm.CardTitle(g.Text(name)),
+            gm.CardDescription(g.Text(email)),
         ),
-        bc.CardFooter(
-            bc.Button(bc.ButtonPrimary, bc.ButtonDefault, g.Text("View Profile")),
+        gm.CardFooter(
+            gm.Button(gm.ButtonPrimary, gm.ButtonDefault, g.Text("View Profile")),
         ),
     )
 }
@@ -545,11 +555,11 @@ func PageLayout(title string, content g.Node) g.Node {
         Head(
             TitleEl(g.Text(title)),
             Link(Rel("stylesheet"), Href("/static/basecoat.css")),
-            bc.DarkModeScript(),
+            gm.DarkModeScript(),
         ),
         Body(
             Div(Class("container mx-auto p-4"),
-                bc.ThemeToggle("theme"),
+                gm.ThemeToggle("theme"),
                 content,
             ),
         ),
@@ -564,9 +574,9 @@ import "maragu.dev/gomponents"
 
 func ConditionalAlert(hasError bool, message string) g.Node {
     return gomponents.If(hasError,
-        bc.Alert(bc.AlertDestructive,
-            bc.AlertTitle(g.Text("Error")),
-            bc.AlertDescription(g.Text(message)),
+        gm.Alert(gm.AlertDestructive,
+            gm.AlertTitle(g.Text("Error")),
+            gm.AlertDescription(g.Text(message)),
         ),
     )
 }

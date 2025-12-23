@@ -1,4 +1,4 @@
-module github.com/MateoCaicedoW/godyui
+module github.com/wawandco/gomui
 
 go 1.24.0
 
