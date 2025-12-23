@@ -39,6 +39,19 @@ func ButtonEl(variant ButtonVariant, size ButtonSize, children ...g.Node) g.Node
 	return h.Button(h.Class(classes), g.Group(children))
 }
 
+// LinkButtonEl creates an anchor element with button styling for navigation
+// Use this when you need a link that visually appears as a button
+func LinkButtonEl(variant ButtonVariant, size ButtonSize, href string, children ...g.Node) g.Node {
+	classes := "btn"
+	if variant != "" {
+		classes += " " + string(variant)
+	}
+	if size != "" {
+		classes += " " + string(size)
+	}
+	return h.A(h.Class(classes), h.Href(href), g.Group(children))
+}
+
 // BadgeVariant defines different badge style variants
 type BadgeVariant string
 

@@ -119,6 +119,21 @@ gm.Button(gm.ButtonPrimary, gm.ButtonLg, g.Text("Large"))
 gm.Button(gm.ButtonPrimary, gm.ButtonIcon, g.Text("🔍"))
 ```
 
+#### Link Buttons
+
+Use `LinkButtonEl` when you need navigation that appears as a button:
+
+```go
+// Primary link button
+gm.LinkButtonEl(gm.ButtonPrimary, gm.ButtonDefault, "/home", g.Text("Go Home"))
+
+// Small secondary link button  
+gm.LinkButtonEl(gm.ButtonSecondary, gm.ButtonSm, "/settings", g.Text("Settings"))
+
+// Large outline link button
+gm.LinkButtonEl(gm.ButtonOutline, gm.ButtonLg, "/docs", g.Text("Documentation"))
+```
+
 ### Forms
 
 ```go
@@ -399,6 +414,7 @@ gm.Card(
 
 ### Buttons & Actions
 - `Button` (with variants: Primary, Secondary, Outline, Ghost, Link, Destructive)
+- `LinkButtonEl` - Anchor elements with button styling for navigation
 
 ### Data Display
 - `Table`, `TableHeader`, `TableBody`, `TableFooter`, `TableRow`, `TableHead`, `TableCell`, `TableCaption`
