@@ -16,7 +16,7 @@ func Test(t *testing.T) {
 		),
 
 		gm.CardContent(
-			gm.ButtonEl(gm.ButtonPrimary, gm.ButtonDefault, g.Text("Click me")),
+			gm.ButtonEl(gm.ButtonPrimary, gm.ButtonDefault, false, g.Text("Click me")),
 			gm.Badge(gm.BadgeSuccess, g.Text("Success")),
 		),
 	)

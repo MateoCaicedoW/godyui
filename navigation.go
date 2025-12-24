@@ -69,12 +69,19 @@ func PaginationNext(href string) g.Node {
 // Tabs components for content switching
 // Tabs creates a tab container
 func Tabs(children ...g.Node) g.Node {
-	return h.Div(h.Class("tabs"), g.Group(children))
+	return h.Div(h.Class("tabs w-full"), g.Group(children))
 }
 
 // TabsList creates a list of tab triggers
 func TabsList(children ...g.Node) g.Node {
-	return h.Div(h.Class("tabs-list"), g.Group(children))
+	return h.Nav(h.Class("w-full"), h.Role("tablist"), g.Group(children))
+}
+
+// TabItem creates a single tab button
+func TabItem(id string, selected bool, children ...g.Node) g.Node {
+	return h.Button(
+		g.If(selected, g.Attr("aria-selected", "true")),
+		h.Type("button"), h.Role("tab"), h.TabIndex("0"), h.ID(id), g.Group(children))
 }
 
 // TabsTrigger creates a clickable tab button

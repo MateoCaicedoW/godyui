@@ -16,16 +16,18 @@ func DarkModeScript() g.Node {
 }
 
 // ThemeToggle creates a theme switcher button for toggling between light/dark modes
-func ThemeToggle(id string) g.Node {
+func ThemeToggle(id string, children ...g.Node) g.Node {
 	return h.Button(
 		h.ID(id),
-		h.Class("btn btn-ghost"),
+		h.Type("button"),
 		g.Attr("onclick", `
 			const html = document.documentElement;
 			const isDark = html.classList.toggle('dark');
 			localStorage.setItem('theme', isDark ? 'dark' : 'light');
 		`),
-		g.Text("🌓"),
+
+		g.Group(children),
+		h.Class("btn-icon-outline size-8"),
 	)
 }
 
