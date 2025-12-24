@@ -5,14 +5,14 @@ import (
 
 	gm "github.com/wawandco/gomui"
 	g "maragu.dev/gomponents"
+	ghtml "maragu.dev/gomponents/html"
 )
 
 func Test(t *testing.T) {
 	// Test that components are accessible from main package
 	page := gm.Card(
 		gm.CardHeader(
-			gm.CardTitle(g.Text("Test")),
-			gm.CardDescription(g.Text("Testing components")),
+			ghtml.H1(g.Text("Card Title")),
 		),
 
 		gm.CardContent(

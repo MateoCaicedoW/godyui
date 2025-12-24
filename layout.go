@@ -13,27 +13,17 @@ func Card(children ...g.Node) g.Node {
 
 // CardHeader creates the top section of a card
 func CardHeader(children ...g.Node) g.Node {
-	return h.Div(h.Class("card-header"), g.Group(children))
-}
-
-// CardTitle creates a heading for card content
-func CardTitle(children ...g.Node) g.Node {
-	return h.H3(h.Class("card-title"), g.Group(children))
-}
-
-// CardDescription creates supporting text for card content
-func CardDescription(children ...g.Node) g.Node {
-	return h.P(h.Class("card-description"), g.Group(children))
+	return h.Header(g.Group(children))
 }
 
 // CardContent creates the main content area of a card
 func CardContent(children ...g.Node) g.Node {
-	return h.Div(h.Class("card-content"), g.Group(children))
+	return h.Section(g.Group(children))
 }
 
 // CardFooter creates the bottom section of a card
 func CardFooter(children ...g.Node) g.Node {
-	return h.Div(h.Class("card-footer"), g.Group(children))
+	return h.Footer(g.Group(children))
 }
 
 // Separator component for visual dividers
