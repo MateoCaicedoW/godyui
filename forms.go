@@ -15,11 +15,6 @@ func TextareaEl(attrs ...g.Node) g.Node {
 	return h.Textarea(h.Class("textarea"), g.Group(attrs))
 }
 
-// SelectEl creates a dropdown select element
-func SelectEl(children ...g.Node) g.Node {
-	return h.Select(h.Class("select"), g.Group(children))
-}
-
 // FormComponent creates a form wrapper element
 func FormComponent(attrs ...g.Node) g.Node {
 	return h.Form(h.Class("form"), g.Group(attrs))
@@ -80,15 +75,22 @@ func RadioGroup(children ...g.Node) g.Node {
 // Switch component for binary toggles
 // Switch creates a toggle switch input
 func Switch(checked bool, attrs ...g.Node) g.Node {
-	allAttrs := []g.Node{
+	return h.Input(
+		g.If(checked, h.Checked()),
+		g.Group(attrs),
 		h.Type("checkbox"),
-		h.Class("switch"),
-	}
-	if checked {
-		allAttrs = append(allAttrs, g.Attr("checked"))
-	}
-	allAttrs = append(allAttrs, attrs...)
-	return h.Input(allAttrs...)
+		h.Class("input"),
+		h.Role("switch"),
+	)
+}
+
+// SwitchContainer creates a container for switch and label
+func SwitchLabel(forID string, children ...g.Node) g.Node {
+	return h.Label(
+		h.Class("label"),
+		h.For(forID),
+		g.Group(children),
+	)
 }
 
 // InputLabel creates a label for form inputs

@@ -48,17 +48,6 @@ func ProgressEl(value int, attrs ...g.Node) g.Node {
 	return h.Progress(allAttrs...)
 }
 
-// Slider component for range selection
-// Slider creates a range input slider
-func Slider(attrs ...g.Node) g.Node {
-	allAttrs := []g.Node{
-		h.Type("range"),
-		h.Class("slider"),
-	}
-	allAttrs = append(allAttrs, attrs...)
-	return h.Input(allAttrs...)
-}
-
 // Tooltip components for contextual help
 // Tooltip creates a tooltip container
 func Tooltip(children ...g.Node) g.Node {
