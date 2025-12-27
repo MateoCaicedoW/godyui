@@ -9,7 +9,7 @@ import (
 type BadgeVariant string
 
 const (
-	BadgeDefault     BadgeVariant = ""
+	BadgePrimary     BadgeVariant = " badge"
 	BadgeSecondary   BadgeVariant = "badge-secondary"
 	BadgeDestructive BadgeVariant = "badge-destructive"
 	BadgeOutline     BadgeVariant = "badge-outline"
@@ -19,9 +19,5 @@ const (
 
 // Badge creates a colored status label
 func Badge(variant BadgeVariant, children ...g.Node) g.Node {
-	classes := "badge"
-	if variant != "" {
-		classes += " " + string(variant)
-	}
-	return h.Span(h.Class(classes), g.Group(children))
+	return h.Span(h.Class(string(variant)), g.Group(children))
 }

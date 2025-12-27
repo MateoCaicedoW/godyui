@@ -11,6 +11,11 @@ func Card(children ...g.Node) g.Node {
 	return h.Div(h.Class("card"), g.Group(children))
 }
 
+// CardWithClasses creates a card container with additional classes
+func CardWithClasses(classes string, children ...g.Node) g.Node {
+	return h.Div(h.Class("card "+classes), g.Group(children))
+}
+
 // CardHeader creates the top section of a card
 func CardHeader(children ...g.Node) g.Node {
 	return h.Header(g.Group(children))

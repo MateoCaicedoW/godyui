@@ -32,10 +32,22 @@ func ButtonEl(variant ButtonVariant, size ButtonSize, isIcon bool, children ...g
 	return h.Button(h.Class(class), g.Group(children))
 }
 
+// ButtonWithClasses creates a button element with additional custom classes
+func ButtonWithClasses(classes string, variant ButtonVariant, size ButtonSize, isIcon bool, children ...g.Node) g.Node {
+	class := buildButtonClass(variant, size, isIcon) + " " + classes
+	return h.Button(h.Class(class), g.Group(children))
+}
+
 // LinkButtonEl creates an anchor element with button styling for navigation
 // Use this when you need a link that visually appears as a button
 func LinkButtonEl(variant ButtonVariant, size ButtonSize, isIcon bool, href string, children ...g.Node) g.Node {
 	class := buildButtonClass(variant, size, isIcon)
+	return h.A(h.Class(class), h.Href(href), g.Group(children))
+}
+
+// LinkButtonWithClasses creates an anchor element with button styling and additional custom classes
+func LinkButtonWithClasses(classes string, variant ButtonVariant, size ButtonSize, isIcon bool, href string, children ...g.Node) g.Node {
+	class := buildButtonClass(variant, size, isIcon) + " " + classes
 	return h.A(h.Class(class), h.Href(href), g.Group(children))
 }
 

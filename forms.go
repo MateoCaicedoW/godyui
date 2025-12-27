@@ -10,6 +10,11 @@ func InputEl(attrs ...g.Node) g.Node {
 	return h.Input(h.Class("input"), g.Group(attrs))
 }
 
+// InputWithClasses creates a styled text input field with additional classes
+func InputWithClasses(classes string, attrs ...g.Node) g.Node {
+	return h.Input(h.Class("input "+classes), g.Group(attrs))
+}
+
 // TextareaEl creates a multi-line text input field
 func TextareaEl(attrs ...g.Node) g.Node {
 	return h.Textarea(h.Class("textarea"), g.Group(attrs))
